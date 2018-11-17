@@ -16,10 +16,15 @@ class MainActivity : AppCompatActivity() {
 //        homeRecycler.layoutManager = GridLayoutManager(this, 4)
 //        homeRecycler.adapter = MoviesAdapter()
 
-        TMDbService.get().getNowPlaying(1, Constants.TMBdApi.KEY)
+        TMDbService.service
+                .getNowPlaying(1, Constants.TMBdApi.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ _ -> Log.d("MainActivity", "Success") },
+                .subscribe(
+                        { np ->
+                            // TODO: Use the result
+                            Log.d("MainActivity", "Success")
+                        },
                         { t -> t.printStackTrace() })
     }
 }

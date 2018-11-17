@@ -21,8 +21,6 @@ interface TMDbService {
 
             service = provideRetrofitClient(baseUrl, okHttpClient).create(TMDbService::class.java)
         }
-
-        fun get() = service
     }
 
     @GET("movie/now_playing")
