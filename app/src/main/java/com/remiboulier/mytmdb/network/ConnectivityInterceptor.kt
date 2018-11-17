@@ -20,8 +20,7 @@ class ConnectivityInterceptor(private val context: Context) : Interceptor {
      * Test if the user has connection data
      * @return True if connected
      *
-     * @see <a href="https://developer.android.com/training/monitoring-device-state/connectivity-monitoring#kotlin">
-     *     Android documentation</a>
+     * @see [Android documentation] (https://developer.android.com/training/monitoring-device-state/connectivity-monitoring#kotlin)
      */
     private fun isConnected(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

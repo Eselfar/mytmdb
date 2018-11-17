@@ -7,6 +7,10 @@ package com.remiboulier.mytmdb
 
 class Constants {
 
+    companion object {
+        const val GRID_COLUMNS = 3
+    }
+
     class Network {
 
         companion object {
