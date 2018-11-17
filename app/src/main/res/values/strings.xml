@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyTMDb</string>
+    <string name="tmbd_required_text">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
 </resources>
