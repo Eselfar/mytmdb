@@ -2,7 +2,7 @@ package com.remiboulier.mytmdb.network
 
 import android.content.Context
 import com.remiboulier.mytmdb.network.models.NowPlaying
-import io.reactivex.Observable
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -24,7 +24,7 @@ interface TMDbService {
     }
 
     @GET("movie/now_playing")
-    fun getNowPlaying(@Query("page") page: Int,
-                      @Query("api_key") apiKey: String): Observable<NowPlaying>
+    fun getNowPlaying(@Query("page") page: Int = 1,
+                      @Query("api_key") apiKey: String): Call<NowPlaying>
 
 }

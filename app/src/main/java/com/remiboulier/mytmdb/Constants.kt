@@ -9,6 +9,7 @@ class Constants {
 
     companion object {
         const val GRID_COLUMNS = 3
+        const val PAGE_SIZE = 20
     }
 
     class Network {

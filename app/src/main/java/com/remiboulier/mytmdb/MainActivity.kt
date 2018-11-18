@@ -1,36 +1,62 @@
 package com.remiboulier.mytmdb
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
+import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import com.remiboulier.mytmdb.network.TMDbService
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.remiboulier.mytmdb.network.models.Result
+import com.remiboulier.mytmdb.repository.InMemoryByPageKeyRepository
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.Executors
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: NowPlayingViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         homeRecycler.layoutManager = GridLayoutManager(this, Constants.GRID_COLUMNS)
-        homeRecycler.adapter = MoviesAdapter(mutableListOf())
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
         homeRecycler.addItemDecoration(GridSpacingItemDecoration(Constants.GRID_COLUMNS, spacingInPixels, true))
 
-        TMDbService.service
-                .getNowPlaying(1, Constants.TMBdApi.KEY)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        { np ->
-                            np.results?.let { (homeRecycler.adapter as MoviesAdapter).update(it) }
-                            // TODO: Use the result
-                            Log.d("MainActivity", "Success")
-                        },
-                        { t -> t.printStackTrace() })
+        viewModel = getViewModel()
+        initAdapter()
+        viewModel.showSubreddit()
+    }
+
+
+    private fun initAdapter() {
+//        val glide = GlideApp.with(this) // TODO: Required later
+        val adapter = MoviesAdapter() {
+            viewModel.retry()
+        }
+        homeRecycler.adapter = adapter
+
+        viewModel.results.observe(this, Observer<PagedList<Result>> {
+            adapter.submitList(it)
+        })
+        viewModel.networkState.observe(this, Observer {
+            adapter.setNetworkState(it)
+        })
+    }
+
+
+    private fun getViewModel(): NowPlayingViewModel {
+        return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                val executor = Executors.newFixedThreadPool(5)
+                val repo = InMemoryByPageKeyRepository(TMDbService.service, executor)
+                @Suppress("UNCHECKED_CAST")
+                return NowPlayingViewModel(repo) as T
+            }
+        })[NowPlayingViewModel::class.java]
     }
 }
