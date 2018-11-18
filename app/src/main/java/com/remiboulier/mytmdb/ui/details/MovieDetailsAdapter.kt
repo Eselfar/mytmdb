@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.remiboulier.mytmdb.R
+import com.remiboulier.mytmdb.extension.getPosterUrl
 import com.remiboulier.mytmdb.network.models.Part
 import com.remiboulier.mytmdb.util.GlideRequests
-import com.remiboulier.mytmdb.util.ImageURLHelper
 
 /**
  * Created by Remi BOULIER on 18/11/2018.
@@ -46,8 +46,8 @@ class MovieDetailsAdapter(private val parts: MutableList<Part>,
             view.setOnClickListener { v -> onClick(parts[adapterPosition].id!!) }
         }
 
-        fun bind(part: Part, glide: GlideRequests) = with(view) {
-            val url = ImageURLHelper.getPosterUrl(part.posterPath)
+        fun bind(part: Part, glide: GlideRequests) {
+            val url = part.posterPath?.getPosterUrl()
             if (url != null) {
                 glide.load(url)
                         .placeholder(R.drawable.img_poster_empty)

@@ -1,41 +1,60 @@
 package com.remiboulier.mytmdb.ui.details
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
+import com.remiboulier.mytmdb.CoreApplication
 import com.remiboulier.mytmdb.R
+import com.remiboulier.mytmdb.extension.getBackdropUrl
+import com.remiboulier.mytmdb.extension.getPosterUrl
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.BelongToCollection
 import com.remiboulier.mytmdb.network.models.Collection
 import com.remiboulier.mytmdb.network.models.MovieDetails
-import com.remiboulier.mytmdb.util.*
+import com.remiboulier.mytmdb.util.ExtraConstants
+import com.remiboulier.mytmdb.util.GlideApp
+import com.remiboulier.mytmdb.util.GlideRequests
+import com.remiboulier.mytmdb.util.TMBdApiConstants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_details.*
 
 class MovieDetailsActivity : AppCompatActivity() {
 
-    lateinit var glideApp: GlideRequests
+    private lateinit var glideApp: GlideRequests
     private lateinit var adapter: MovieDetailsAdapter
+    private lateinit var tmDbApi: TMDbApi
+
+    companion object {
+        fun newIntent(context: Context, movieId: Int) =
+                Intent(context, MovieDetailsActivity::class.java)
+                        .also {
+                            it.putExtra(ExtraConstants.MOVIE_ID, movieId)
+                        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
-        val id = intent.getIntExtra(Constants.Extra.MOVIE_ID, 0)
+        val id = intent.getIntExtra(ExtraConstants.MOVIE_ID, 0)
 
+        tmDbApi = (application as CoreApplication).tmDbApi
         glideApp = GlideApp.with(this)
-        adapter = MovieDetailsAdapter(mutableListOf(), glideApp) { movieId -> goToMovieDetails(this, movieId) }
+        adapter = MovieDetailsAdapter(mutableListOf(), glideApp)
+        { movieId -> startActivity(MovieDetailsActivity.newIntent(this, movieId)) }
 
         detailsCollectionTitle.visibility = View.GONE
         detailsCollectionRecycler.visibility = View.GONE
         detailsCollectionRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         detailsCollectionRecycler.adapter = adapter
 
-        TMDbApi.api.getMovieDetails(id, Constants.TMBdApi.KEY)
+        tmDbApi.getMovieDetails(id, TMBdApiConstants.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -49,7 +68,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     private fun getCollection(btc: BelongToCollection) {
-        TMDbApi.api.getCollection(btc.id!!, Constants.TMBdApi.KEY)
+        tmDbApi.getCollection(btc.id!!, TMBdApiConstants.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -64,8 +83,8 @@ class MovieDetailsActivity : AppCompatActivity() {
     }
 
     fun updateMainUI(movie: MovieDetails) = with(movie) {
-        uploadMovieImage(ImageURLHelper.getBackdropUrl(backdropPath), detailsBackdrop)
-        uploadMovieImage(ImageURLHelper.getPosterUrl(posterPath), detailsPoster, R.drawable.img_poster_empty)
+        uploadMovieImage(backdropPath?.getBackdropUrl(), detailsBackdrop)
+        uploadMovieImage(posterPath?.getPosterUrl(), detailsPoster, R.drawable.img_poster_empty)
         detailsTitle.text = title
         detailsReleaseDate.text = releaseDate
         detailsRunningTime.text = "2h50"// TODO: runtime

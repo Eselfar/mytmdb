@@ -2,7 +2,9 @@ package com.remiboulier.mytmdb
 
 import android.app.Application
 import com.remiboulier.mytmdb.network.TMDbApi
-import com.remiboulier.mytmdb.util.Constants
+import com.remiboulier.mytmdb.util.TMBdApiConstants
+import com.remiboulier.mytmdb.util.provideOkHttpClient
+import com.remiboulier.mytmdb.util.provideRetrofitClient
 
 /**
  * Created by Remi BOULIER on 17/11/2018.
@@ -11,9 +13,13 @@ import com.remiboulier.mytmdb.util.Constants
 
 class CoreApplication : Application() {
 
+    lateinit var tmDbApi: TMDbApi
+
     override fun onCreate() {
         super.onCreate()
 
-        TMDbApi.init(this, Constants.TMBdApi.BASE_URL)
+        val okHttpClient = provideOkHttpClient(this)
+        tmDbApi = provideRetrofitClient(TMBdApiConstants.BASE_URL, okHttpClient)
+                .create(TMDbApi::class.java)
     }
 }

@@ -37,9 +37,9 @@ fun provideOkHttpClient(context: Context): OkHttpClient {
     logging.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
     return OkHttpClient.Builder()
-            .connectTimeout(Constants.Network.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
-            .writeTimeout(Constants.Network.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
-            .readTimeout(Constants.Network.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+            .connectTimeout(NetworkConstants.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+            .writeTimeout(NetworkConstants.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
+            .readTimeout(NetworkConstants.TIMEOUT_IN_SECONDS.toLong(), TimeUnit.SECONDS)
             .addInterceptor(ConnectivityInterceptor(context))
             .addInterceptor(logging)
             .build()

@@ -2,7 +2,7 @@
     <string name="app_name">MyTMDb</string>
     <string name="cancelled">Cancelled</string>
     <string name="in_production">In Production</string>
-    <string name="in_the_collection">In the collection</string>
+    <string name="in_collection">In collection</string>
     <string name="planned">Planned</string>
     <string name="post_production">Post Production</string>
     <string name="released">Released</string>

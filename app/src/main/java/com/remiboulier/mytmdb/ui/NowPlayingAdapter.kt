@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.remiboulier.mytmdb.R
+import com.remiboulier.mytmdb.extension.getPosterUrl
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.NetworkState
 import com.remiboulier.mytmdb.util.GlideRequests
-import com.remiboulier.mytmdb.util.ImageURLHelper
 import kotlinx.android.synthetic.main.item_recycler_npmovie.view.*
 
 class NowPlayingAdapter(
@@ -75,7 +75,7 @@ class NowPlayingAdapter(
             if (npMovie != null)
                 resultTitle.text = npMovie.title
 
-            val url = ImageURLHelper.getPosterUrl(npMovie?.posterPath)
+            val url = npMovie?.posterPath?.getPosterUrl()
             if (url != null) {
                 glide.load(url)
                         .placeholder(R.drawable.img_poster_empty)

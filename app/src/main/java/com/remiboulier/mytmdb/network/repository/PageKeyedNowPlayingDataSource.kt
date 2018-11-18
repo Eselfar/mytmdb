@@ -5,7 +5,7 @@ import android.arch.paging.PageKeyedDataSource
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.models.NowPlaying
-import com.remiboulier.mytmdb.util.Constants
+import com.remiboulier.mytmdb.util.TMBdApiConstants
 import retrofit2.Call
 import retrofit2.Response
 import java.io.IOException
@@ -33,31 +33,31 @@ class PageKeyedNowPlayingDataSource(
     val initialLoad = MutableLiveData<NetworkState>()
 
     fun retryAllFailed() {
-        val prevRetry = retry
-        retry = null
-        prevRetry?.let {
+        retry?.let {
             retryExecutor.execute {
                 it.invoke()
             }
         }
+        retry = null
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>,
                              callback: LoadInitialCallback<Int, NPMovie>) {
-        val request = tmDbApi.getNowPlaying(apiKey = Constants.TMBdApi.KEY)
+
+        val request = tmDbApi.getNowPlaying(apiKey = TMBdApiConstants.KEY)
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 
         // triggered by a refresh, we better execute sync
         try {
-            val response = request.execute()
-            val data = response.body()
+            val data = request.execute().body()
             val items = data?.npMovies?.map { it } ?: emptyList()
             retry = null
             networkState.postValue(NetworkState.LOADED)
             initialLoad.postValue(NetworkState.LOADED)
             val nextKey = generateNextKey(data?.page, data?.totalPages)
             callback.onResult(items, null, nextKey)
+
         } catch (ioException: IOException) {
             retry = {
                 loadInitial(params, callback)
@@ -80,7 +80,7 @@ class PageKeyedNowPlayingDataSource(
         networkState.postValue(NetworkState.LOADING)
         tmDbApi.getNowPlaying(
                 params.key,
-                Constants.TMBdApi.KEY).enqueue(
+                TMBdApiConstants.KEY).enqueue(
                 object : retrofit2.Callback<NowPlaying> {
                     override fun onFailure(call: Call<NowPlaying>, t: Throwable) {
                         retry = {

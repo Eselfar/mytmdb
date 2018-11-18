@@ -5,7 +5,7 @@ import android.arch.lifecycle.Transformations.map
 import android.arch.lifecycle.Transformations.switchMap
 import android.arch.lifecycle.ViewModel
 import com.remiboulier.mytmdb.network.repository.ResultsRepository
-import com.remiboulier.mytmdb.util.Constants
+import com.remiboulier.mytmdb.util.NowPlayingConstants
 
 /**
  * Created by Remi BOULIER on 17/11/2018.
@@ -16,7 +16,7 @@ class NowPlayingViewModel(private val repository: ResultsRepository) : ViewModel
 
     private val resultsLiveData = MutableLiveData<String>()
     private val repoResult = map(resultsLiveData) {
-        repository.nowPlayingResults(Constants.PAGE_SIZE)
+        repository.nowPlayingResults(NowPlayingConstants.PAGE_SIZE)
     }
 
     val results = switchMap(repoResult, { it.pagedList })!!

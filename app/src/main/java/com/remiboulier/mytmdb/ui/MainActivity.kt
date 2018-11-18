@@ -8,13 +8,13 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import com.remiboulier.mytmdb.CoreApplication
 import com.remiboulier.mytmdb.R
-import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.InMemoryByPageKeyRepository
-import com.remiboulier.mytmdb.util.Constants
+import com.remiboulier.mytmdb.ui.details.MovieDetailsActivity
 import com.remiboulier.mytmdb.util.GlideApp
-import com.remiboulier.mytmdb.util.goToMovieDetails
+import com.remiboulier.mytmdb.util.NowPlayingConstants
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
 
@@ -27,9 +27,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        homeRecycler.layoutManager = GridLayoutManager(this, Constants.GRID_COLUMNS)
+        homeRecycler.layoutManager = GridLayoutManager(this, NowPlayingConstants.GRID_COLUMNS)
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.spacing)
-        homeRecycler.addItemDecoration(GridSpacingItemDecoration(Constants.GRID_COLUMNS, spacingInPixels, true))
+        homeRecycler.addItemDecoration(GridSpacingItemDecoration(NowPlayingConstants.GRID_COLUMNS, spacingInPixels, true))
 
         viewModel = getViewModel()
         initAdapter()
@@ -38,9 +38,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAdapter() {
         val glide = GlideApp.with(this)
-        val adapter = NowPlayingAdapter(glide, { movieId -> goToMovieDetails(this, movieId) }) {
-            viewModel.retry()
-        }
+        val adapter = NowPlayingAdapter(glide,
+                { movieId -> startActivity(MovieDetailsActivity.newIntent(this, movieId)) },
+                { viewModel.retry() })
+
         homeRecycler.adapter = adapter
 
         viewModel.results.observe(this, Observer<PagedList<NPMovie>> {
@@ -55,7 +56,8 @@ class MainActivity : AppCompatActivity() {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val executor = Executors.newFixedThreadPool(5)
-                val repo = InMemoryByPageKeyRepository(TMDbApi.api, executor)
+                val tmDbApi = (application as CoreApplication).tmDbApi
+                val repo = InMemoryByPageKeyRepository(tmDbApi, executor)
                 @Suppress("UNCHECKED_CAST")
                 return NowPlayingViewModel(repo) as T
             }
