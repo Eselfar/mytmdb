@@ -1,6 +1,5 @@
 package com.remiboulier.mytmdb.ui.details
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.v7.app.AppCompatActivity
@@ -12,10 +11,7 @@ import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.BelongToCollection
 import com.remiboulier.mytmdb.network.models.Collection
 import com.remiboulier.mytmdb.network.models.MovieDetails
-import com.remiboulier.mytmdb.util.Constants
-import com.remiboulier.mytmdb.util.GlideApp
-import com.remiboulier.mytmdb.util.GlideRequests
-import com.remiboulier.mytmdb.util.ImageURLHelper
+import com.remiboulier.mytmdb.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_movie_details.*
@@ -29,10 +25,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
-        val id = intent.getIntExtra(Constants.Extra.MOVIE_ID, 338952)
+        val id = intent.getIntExtra(Constants.Extra.MOVIE_ID, 0)
 
         glideApp = GlideApp.with(this)
-        adapter = MovieDetailsAdapter(mutableListOf(), glideApp) { movieId -> goToMovieDetails(movieId) }
+        adapter = MovieDetailsAdapter(mutableListOf(), glideApp) { movieId -> goToMovieDetails(this, movieId) }
 
         detailsCollectionTitle.visibility = View.GONE
         detailsCollectionRecycler.visibility = View.GONE
@@ -50,12 +46,6 @@ class MovieDetailsActivity : AppCompatActivity() {
                             updateMainUI(movie)
                         },
                         { t -> t.printStackTrace() })
-    }
-
-    fun goToMovieDetails(movieId: Int) {
-        val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra(Constants.Extra.MOVIE_ID, movieId)
-        startActivity(intent)
     }
 
     private fun getCollection(btc: BelongToCollection) {

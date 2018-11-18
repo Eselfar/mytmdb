@@ -9,11 +9,15 @@ import android.view.ViewGroup
 import com.remiboulier.mytmdb.R
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.NetworkState
+import com.remiboulier.mytmdb.util.GlideRequests
+import com.remiboulier.mytmdb.util.ImageURLHelper
 import kotlinx.android.synthetic.main.item_recycler_npmovie.view.*
 
 class NowPlayingAdapter(
+        private val glide: GlideRequests,
+        private val onClick: (movieId: Int) -> Unit,
         private val retryCallback: () -> Unit)
-    : PagedListAdapter<NPMovie, NPMovieViewHolder>(DIFF_CALLBACK) {
+    : PagedListAdapter<NPMovie, NowPlayingAdapter.NPMovieViewHolder>(DIFF_CALLBACK) {
 
     private var networkState: NetworkState? = null
 
@@ -21,9 +25,12 @@ class NowPlayingAdapter(
         holder.bind(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NPMovieViewHolder =
-            NPMovieViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recycler_npmovie, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NPMovieViewHolder {
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_recycler_npmovie, parent, false)
+
+        return NPMovieViewHolder(view, glide, onClick)
+    }
 
     private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 
@@ -56,12 +63,26 @@ class NowPlayingAdapter(
                     oldItem: NPMovie, newItem: NPMovie) = oldItem == newItem
         }
     }
-}
 
-class NPMovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class NPMovieViewHolder(val view: View,
+                                  val glide: GlideRequests,
+                                  onClick: (movieId: Int) -> Unit) : RecyclerView.ViewHolder(view) {
+        init {
+            view.setOnClickListener { onClick(getItem(adapterPosition)?.id!!) }
+        }
 
-    fun bind(npMovie: NPMovie?) = with(view) {
-        if (npMovie != null)
-            resultTitle.text = npMovie.title
+        fun bind(npMovie: NPMovie?) = with(view) {
+            if (npMovie != null)
+                resultTitle.text = npMovie.title
+
+            val url = ImageURLHelper.getPosterUrl(npMovie?.posterPath)
+            if (url != null) {
+                glide.load(url)
+                        .placeholder(R.drawable.img_poster_empty)
+                        .into(resultImage)
+            } else {
+                resultImage.setImageResource(R.drawable.img_poster_empty)
+            }
+        }
     }
 }

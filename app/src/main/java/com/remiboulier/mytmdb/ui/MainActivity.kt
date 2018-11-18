@@ -13,6 +13,8 @@ import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.InMemoryByPageKeyRepository
 import com.remiboulier.mytmdb.util.Constants
+import com.remiboulier.mytmdb.util.GlideApp
+import com.remiboulier.mytmdb.util.goToMovieDetails
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
 
@@ -34,10 +36,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.showSubreddit()
     }
 
-
     private fun initAdapter() {
-//        val glide = GlideApp.with(this) // TODO: Required later
-        val adapter = NowPlayingAdapter() {
+        val glide = GlideApp.with(this)
+        val adapter = NowPlayingAdapter(glide, { movieId -> goToMovieDetails(this, movieId) }) {
             viewModel.retry()
         }
         homeRecycler.adapter = adapter
@@ -49,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             adapter.setNetworkState(it)
         })
     }
-
 
     private fun getViewModel(): NowPlayingViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
