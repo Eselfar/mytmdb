@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#1d1d1d</color>
+    <color name="colorPrimaryDark">#0a0a0a</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="default_white">#fff</color>
     <color name="default_red">#d8021c</color>
+    <color name="default_red_dark">#c60018</color>
     <color name="default_black">#1a1c21</color>
 
     <color name="details_text">@color/default_white</color>
     <color name="details_text_bg">#7c121212</color>
     <color name="details_text_minor">#f4f4f4</color>
     <color name="details_highlight">@color/default_red</color>
+    <color name="toolbar_title">@color/default_red_dark</color>
 </resources>
