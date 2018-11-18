@@ -26,8 +26,9 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
+        tools:src="@drawable/img_fantastic_beast_poster_154"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/img_fantastic_beast_poster_154" />
+        android:src="@drawable/img_poster_empty" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -59,7 +60,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/details_release_date"
+                android:id="@+id/detailsReleaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -67,7 +68,7 @@
                 tools:text="2016" />
 
             <TextView
-                android:id="@+id/details_running_time"
+                android:id="@+id/detailsRunningTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/details_text"
@@ -81,14 +82,14 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/details_genres"
+            android:id="@+id/detailsGenres"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/details_text_minor"
             tools:text="Genres: Drama, Family, Fantasy" />
 
         <TextView
-            android:id="@+id/details_status"
+            android:id="@+id/detailsStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/details_text_minor"
@@ -109,7 +110,7 @@
 
 
     <TextView
-        android:id="@+id/details_overview"
+        android:id="@+id/detailsOverview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -151,8 +152,8 @@
         android:textColor="@color/details_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_overview"
-        tools:text="Similar" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsOverview"
+        android:text="@string/similar" />
 
 
     <android.support.v7.widget.RecyclerView

@@ -9,7 +9,7 @@
     <color name="default_black">#1a1c21</color>
 
     <color name="details_text">@color/default_white</color>
-    <color name="details_text_bg">#64121212</color>
+    <color name="details_text_bg">#7c121212</color>
     <color name="details_text_minor">#f4f4f4</color>
     <color name="details_highlight">@color/default_red</color>
 </resources>

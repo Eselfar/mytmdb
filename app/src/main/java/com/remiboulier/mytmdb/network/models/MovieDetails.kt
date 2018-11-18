@@ -1,6 +1,8 @@
 package com.remiboulier.mytmdb.network.models
 
+import android.support.annotation.StringRes
 import com.google.gson.annotations.SerializedName
+import com.remiboulier.mytmdb.R
 
 /**
  * Created by Remi BOULIER on 18/11/2018.
@@ -63,19 +65,19 @@ data class BelongToCollection(
         @SerializedName("poster_path") val logoPath: String? = null
 )
 
-enum class Status {
+enum class Status(@StringRes val resId: Int) {
     @SerializedName("Rumored")
-    RUMORED,
+    RUMORED(R.string.rumored),
     @SerializedName("Planned")
-    PLANNED,
+    PLANNED(R.string.planned),
     @SerializedName("In Production")
-    IN_PRODUCTION,
+    IN_PRODUCTION(R.string.in_production),
     @SerializedName("Post Production")
-    POST_PRODUCTION,
+    POST_PRODUCTION(R.string.post_production),
     @SerializedName("Released")
-    RELEASED,
+    RELEASED(R.string.released),
     @SerializedName("Canceled")
-    CANCELLED
+    CANCELLED(R.string.cancelled)
 }
 
 

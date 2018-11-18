@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">MyTMDb</string>
     <string name="tmbd_required_text">This product uses the TMDb API but is not endorsed or certified by TMDb.</string>
+    <string name="similar">Similar</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="released">Released</string>
+    <string name="post_production">Post Production</string>
+    <string name="in_production">In Production</string>
+    <string name="planned">Planned</string>
+    <string name="rumored">Rumored</string>
 </resources>

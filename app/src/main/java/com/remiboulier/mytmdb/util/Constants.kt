@@ -25,14 +25,12 @@ interface Constants {
             const val BASE_URL_IMG = "https://image.tmdb.org/t/p/"
         }
     }
+}
 
-    interface PosterSize {
-        // Available sizes are "w92", "w154", "w185", "w342", "w500", "w780", or "original"
-        companion object {
-            const val SMALL = "w92"
-            const val MEDIUM = "w185"
-            const val LARGE = "w500"
-            const val EXTRA_LARGE = "w780"
-        }
-    }
+enum class PosterSize(val size: String) {
+    // Available sizes are "w92", "w154", "w185", "w342", "w500", "w780", or "original"
+    SMALL("w92"),
+    MEDIUM("w185"),
+    LARGE("w500"),
+    EXTRA_LARGE("w780")
 }
