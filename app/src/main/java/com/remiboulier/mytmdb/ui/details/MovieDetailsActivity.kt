@@ -1,5 +1,6 @@
 package com.remiboulier.mytmdb.ui.details
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.v7.app.AppCompatActivity
@@ -28,15 +29,17 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
+        val id = intent.getIntExtra(Constants.Extra.MOVIE_ID, 338952)
+
         glideApp = GlideApp.with(this)
-        adapter = MovieDetailsAdapter(mutableListOf(), glideApp)
+        adapter = MovieDetailsAdapter(mutableListOf(), glideApp) { movieId -> goToMovieDetails(movieId) }
 
         detailsCollectionTitle.visibility = View.GONE
         detailsCollectionRecycler.visibility = View.GONE
         detailsCollectionRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         detailsCollectionRecycler.adapter = adapter
 
-        TMDbApi.api.getMovieDetails(338952, Constants.TMBdApi.KEY)
+        TMDbApi.api.getMovieDetails(id, Constants.TMBdApi.KEY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -47,6 +50,12 @@ class MovieDetailsActivity : AppCompatActivity() {
                             updateMainUI(movie)
                         },
                         { t -> t.printStackTrace() })
+    }
+
+    fun goToMovieDetails(movieId: Int) {
+        val intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra(Constants.Extra.MOVIE_ID, movieId)
+        startActivity(intent)
     }
 
     private fun getCollection(btc: BelongToCollection) {

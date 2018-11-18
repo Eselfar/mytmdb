@@ -15,12 +15,16 @@ import com.remiboulier.mytmdb.util.ImageURLHelper
  */
 
 class MovieDetailsAdapter(private val parts: MutableList<Part>,
-                          private val glide: GlideRequests) : RecyclerView.Adapter<PartViewHolder>() {
+                          private val glide: GlideRequests,
+                          private val onClick: (movieId: Int) -> Unit) : RecyclerView.Adapter<MovieDetailsAdapter.PartViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-            PartViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_recycler_movie_details_part, parent, false) as ImageView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PartViewHolder {
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_recycler_movie_details_part, parent, false) as ImageView
+
+        return PartViewHolder(view, onClick)
+    }
 
     override fun getItemCount() = parts.size
 
@@ -34,18 +38,23 @@ class MovieDetailsAdapter(private val parts: MutableList<Part>,
             parts.addAll(newParts)
         notifyDataSetChanged()
     }
-}
 
-class PartViewHolder(val view: ImageView) : RecyclerView.ViewHolder(view) {
 
-    fun bind(part: Part, glide: GlideRequests) = with(view) {
-        val url = ImageURLHelper.getPosterUrl(part.posterPath)
-        if (url != null) {
-            glide.load(url)
-                    .placeholder(R.drawable.img_poster_empty)
-                    .into(view)
-        } else {
-            view.setImageResource(R.drawable.img_poster_empty)
+    inner class PartViewHolder(val view: ImageView, onClick: (movieId: Int) -> Unit) : RecyclerView.ViewHolder(view) {
+
+        init {
+            view.setOnClickListener { v -> onClick(parts[adapterPosition].id!!) }
+        }
+
+        fun bind(part: Part, glide: GlideRequests) = with(view) {
+            val url = ImageURLHelper.getPosterUrl(part.posterPath)
+            if (url != null) {
+                glide.load(url)
+                        .placeholder(R.drawable.img_poster_empty)
+                        .into(view)
+            } else {
+                view.setImageResource(R.drawable.img_poster_empty)
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.remiboulier.mytmdb.util
 
+import com.remiboulier.mytmdb.BuildConfig
+
 /**
  * Created by Remi BOULIER on 17/11/2018.
  * email: boulier.r.job@gmail.com
@@ -23,6 +25,12 @@ interface Constants {
             const val BASE_URL = "https://api.themoviedb.org/3/"
             const val KEY = "f41ca18f0599d432194cea5214a7f2bc"
             const val BASE_URL_IMG = "https://image.tmdb.org/t/p/"
+        }
+    }
+
+    interface Extra {
+        companion object {
+            const val MOVIE_ID = BuildConfig.APPLICATION_ID + ".MOVIE_ID"
         }
     }
 }
