@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="default_white">#fff</color>
+    <color name="default_red">#d8021c</color>
+    <color name="default_black">#1a1c21</color>
+
+    <color name="details_text">@color/default_white</color>
+    <color name="details_text_bg">#64121212</color>
+    <color name="details_text_minor">#f4f4f4</color>
+    <color name="details_highlight">@color/default_red</color>
 </resources>

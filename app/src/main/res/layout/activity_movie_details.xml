@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.details.MovieDetailsActivity">
+
+    <ImageView
+        android:id="@+id/detailsBackdrop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="#fff"
+        tools:src="@drawable/img_fantastic_beast_backdrop_780" />
+
+    <ImageView
+        android:id="@+id/detailsPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_fantastic_beast_poster_154" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/details_text_bg"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/detailsPoster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/detailsPoster"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/detailsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/details_text"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Fantastic Beasts and Where to Find Them" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/details_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/details_text"
+                tools:text="2016" />
+
+            <TextView
+                android:id="@+id/details_running_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/details_text"
+                tools:text="2h20" />
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/details_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/details_text_minor"
+            tools:text="Genres: Drama, Family, Fantasy" />
+
+        <TextView
+            android:id="@+id/details_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/details_text_minor"
+            tools:text="Status: Released" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/details_separator_01"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/default_red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPoster" />
+
+
+    <TextView
+        android:id="@+id/details_overview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/details_text_bg"
+        android:padding="8dp"
+        android:textColor="@color/details_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_separator_01"
+        tools:text="Phasellus vel nisi sed elit porttitor euismod a nec dolor. Nulla mollis cursus tempor. Aenean imperdiet in nulla eu elementum. Nunc in est vitae tellus tincidunt rutrum at at libero. Duis viverra, nisi a ultricies luctus, orci ex consequat mi, sed imperdiet nisi sapien a ex. Curabitur maximus est dolor, quis facilisis lorem molestie id. Maecenas molestie eget massa id dapibus. Maecenas ante tellus, egestas vel lacus vel, euismod vehicula nisl." />
+
+    <!--<View-->
+    <!--android:id="@+id/details_separator_02"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="2dp"-->
+    <!--android:layout_marginEnd="10dp"-->
+    <!--android:visibility="invisible"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--android:layout_marginTop="10dp"-->
+    <!--android:background="@color/default_red"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/details_overview" />-->
+
+    <TextView
+        android:id="@+id/details_similar_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/details_text_bg"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/details_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_overview"
+        tools:text="Similar" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/details_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/details_text_bg"
+        android:paddingBottom="50dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_similar_title" />
+
+</android.support.constraint.ConstraintLayout>
