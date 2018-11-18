@@ -1,10 +1,11 @@
-package com.remiboulier.mytmdb
+package com.remiboulier.mytmdb.ui
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Transformations.map
 import android.arch.lifecycle.Transformations.switchMap
 import android.arch.lifecycle.ViewModel
-import com.remiboulier.mytmdb.repository.ResultsRepository
+import com.remiboulier.mytmdb.network.repository.ResultsRepository
+import com.remiboulier.mytmdb.util.Constants
 
 /**
  * Created by Remi BOULIER on 17/11/2018.

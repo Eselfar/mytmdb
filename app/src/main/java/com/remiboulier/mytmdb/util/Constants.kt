@@ -1,4 +1,4 @@
-package com.remiboulier.mytmdb
+package com.remiboulier.mytmdb.util
 
 /**
  * Created by Remi BOULIER on 17/11/2018.

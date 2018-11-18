@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.remiboulier.mytmdb.repository
+package com.remiboulier.mytmdb.network.repository
 
 enum class Status {
     RUNNING,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.remiboulier.mytmdb.repository
+package com.remiboulier.mytmdb.network.repository
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource

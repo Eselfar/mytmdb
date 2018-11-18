@@ -1,9 +1,9 @@
-package com.remiboulier.mytmdb.network
+package com.remiboulier.mytmdb.util
 
 import android.content.Context
 import com.google.gson.GsonBuilder
 import com.remiboulier.mytmdb.BuildConfig
-import com.remiboulier.mytmdb.Constants
+import com.remiboulier.mytmdb.network.ConnectivityInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

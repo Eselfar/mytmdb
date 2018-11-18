@@ -1,4 +1,4 @@
-package com.remiboulier.mytmdb
+package com.remiboulier.mytmdb.ui
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil
@@ -6,8 +6,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.remiboulier.mytmdb.R
 import com.remiboulier.mytmdb.network.models.NPMovie
-import com.remiboulier.mytmdb.repository.NetworkState
+import com.remiboulier.mytmdb.network.repository.NetworkState
 import kotlinx.android.synthetic.main.item_grid_result.view.*
 
 class MoviesAdapter(

@@ -1,4 +1,4 @@
-package com.remiboulier.mytmdb.repository
+package com.remiboulier.mytmdb.network.repository
 
 import com.remiboulier.mytmdb.network.models.NPMovie
 

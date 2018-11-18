@@ -2,6 +2,8 @@ package com.remiboulier.mytmdb.network
 
 import android.content.Context
 import com.remiboulier.mytmdb.network.models.NowPlaying
+import com.remiboulier.mytmdb.util.provideOkHttpClient
+import com.remiboulier.mytmdb.util.provideRetrofitClient
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

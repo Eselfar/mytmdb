@@ -1,4 +1,4 @@
-package com.remiboulier.mytmdb
+package com.remiboulier.mytmdb.ui
 
 import android.graphics.Rect
 import android.support.v7.widget.RecyclerView

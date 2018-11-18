@@ -1,11 +1,11 @@
-package com.remiboulier.mytmdb.repository
+package com.remiboulier.mytmdb.network.repository
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
-import com.remiboulier.mytmdb.Constants
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.models.NowPlaying
+import com.remiboulier.mytmdb.util.Constants
 import retrofit2.Call
 import retrofit2.Response
 import java.io.IOException

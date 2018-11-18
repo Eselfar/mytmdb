@@ -1,4 +1,4 @@
-package com.remiboulier.mytmdb
+package com.remiboulier.mytmdb.ui
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
@@ -8,9 +8,11 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import com.remiboulier.mytmdb.R
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
-import com.remiboulier.mytmdb.repository.InMemoryByPageKeyRepository
+import com.remiboulier.mytmdb.network.repository.InMemoryByPageKeyRepository
+import com.remiboulier.mytmdb.util.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
 

@@ -2,6 +2,7 @@ package com.remiboulier.mytmdb
 
 import android.app.Application
 import com.remiboulier.mytmdb.network.TMDbApi
+import com.remiboulier.mytmdb.util.Constants
 
 /**
  * Created by Remi BOULIER on 17/11/2018.
