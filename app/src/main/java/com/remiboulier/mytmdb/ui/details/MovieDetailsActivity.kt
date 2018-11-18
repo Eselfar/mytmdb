@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.annotation.DrawableRes
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import com.remiboulier.mytmdb.CoreApplication
@@ -41,6 +42,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_details)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val id = intent.getIntExtra(ExtraConstants.MOVIE_ID, 0)
 
         tmDbApi = (application as CoreApplication).tmDbApi
@@ -64,6 +67,16 @@ class MovieDetailsActivity : AppCompatActivity() {
                             updateMainUI(movie)
                         },
                         { t -> t.printStackTrace() })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getCollection(btc: BelongToCollection) {
