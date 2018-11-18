@@ -11,15 +11,15 @@ import retrofit2.http.Query
  * email: boulier.r.job@gmail.com
  */
 
-interface TMDbService {
+interface TMDbApi {
 
     companion object {
-        lateinit var service: TMDbService
+        lateinit var api: TMDbApi
 
         fun init(context: Context, baseUrl: String) {
             val okHttpClient = provideOkHttpClient(context)
 
-            service = provideRetrofitClient(baseUrl, okHttpClient).create(TMDbService::class.java)
+            api = provideRetrofitClient(baseUrl, okHttpClient).create(TMDbApi::class.java)
         }
     }
 

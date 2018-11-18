@@ -1,7 +1,7 @@
 package com.remiboulier.mytmdb
 
 import android.app.Application
-import com.remiboulier.mytmdb.network.TMDbService
+import com.remiboulier.mytmdb.network.TMDbApi
 
 /**
  * Created by Remi BOULIER on 17/11/2018.
@@ -13,6 +13,6 @@ class CoreApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        TMDbService.init(this, Constants.TMBdApi.BASE_URL)
+        TMDbApi.init(this, Constants.TMBdApi.BASE_URL)
     }
 }

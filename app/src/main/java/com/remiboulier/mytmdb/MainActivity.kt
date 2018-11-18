@@ -8,8 +8,8 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
-import com.remiboulier.mytmdb.network.TMDbService
-import com.remiboulier.mytmdb.network.models.Result
+import com.remiboulier.mytmdb.network.TMDbApi
+import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.repository.InMemoryByPageKeyRepository
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.Executors
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
         homeRecycler.adapter = adapter
 
-        viewModel.results.observe(this, Observer<PagedList<Result>> {
+        viewModel.results.observe(this, Observer<PagedList<NPMovie>> {
             adapter.submitList(it)
         })
         viewModel.networkState.observe(this, Observer {
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val executor = Executors.newFixedThreadPool(5)
-                val repo = InMemoryByPageKeyRepository(TMDbService.service, executor)
+                val repo = InMemoryByPageKeyRepository(TMDbApi.api, executor)
                 @Suppress("UNCHECKED_CAST")
                 return NowPlayingViewModel(repo) as T
             }

@@ -3,9 +3,9 @@ package com.remiboulier.mytmdb.repository
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
 import com.remiboulier.mytmdb.Constants
-import com.remiboulier.mytmdb.network.TMDbService
+import com.remiboulier.mytmdb.network.TMDbApi
+import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.models.NowPlaying
-import com.remiboulier.mytmdb.network.models.Result
 import retrofit2.Call
 import retrofit2.Response
 import java.io.IOException
@@ -17,8 +17,8 @@ import java.util.concurrent.Executor
  */
 
 class PageKeyedNowPlayingDataSource(
-        private val tmDbService: TMDbService,
-        private val retryExecutor: Executor) : PageKeyedDataSource<Int, Result>() {
+        private val tmDbApi: TMDbApi,
+        private val retryExecutor: Executor) : PageKeyedDataSource<Int, NPMovie>() {
 
 
     // keep a function reference for the retry event
@@ -43,8 +43,8 @@ class PageKeyedNowPlayingDataSource(
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>,
-                             callback: LoadInitialCallback<Int, Result>) {
-        val request = tmDbService.getNowPlaying(apiKey = Constants.TMBdApi.KEY)
+                             callback: LoadInitialCallback<Int, NPMovie>) {
+        val request = tmDbApi.getNowPlaying(apiKey = Constants.TMBdApi.KEY)
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
 
@@ -52,7 +52,7 @@ class PageKeyedNowPlayingDataSource(
         try {
             val response = request.execute()
             val data = response.body()
-            val items = data?.results?.map { it } ?: emptyList()
+            val items = data?.npMovies?.map { it } ?: emptyList()
             retry = null
             networkState.postValue(NetworkState.LOADED)
             initialLoad.postValue(NetworkState.LOADED)
@@ -75,10 +75,10 @@ class PageKeyedNowPlayingDataSource(
             else null
 
     override fun loadAfter(params: LoadParams<Int>,
-                           callback: LoadCallback<Int, Result>) {
+                           callback: LoadCallback<Int, NPMovie>) {
 
         networkState.postValue(NetworkState.LOADING)
-        tmDbService.getNowPlaying(
+        tmDbApi.getNowPlaying(
                 params.key,
                 Constants.TMBdApi.KEY).enqueue(
                 object : retrofit2.Callback<NowPlaying> {
@@ -96,7 +96,7 @@ class PageKeyedNowPlayingDataSource(
 
                         if (response.isSuccessful) {
                             val data = response.body()
-                            val items = data?.results?.map { it } ?: emptyList()
+                            val items = data?.npMovies?.map { it } ?: emptyList()
                             retry = null
                             val nextKey = generateNextKey(data?.page, data?.totalPages)
                             callback.onResult(items, nextKey)
@@ -113,7 +113,7 @@ class PageKeyedNowPlayingDataSource(
         )
     }
 
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Result>) {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, NPMovie>) {
         // ignored, since we only ever append to our initial load
     }
 }

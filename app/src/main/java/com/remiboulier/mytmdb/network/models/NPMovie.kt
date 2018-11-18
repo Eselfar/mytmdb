@@ -2,7 +2,7 @@ package com.remiboulier.mytmdb.network.models
 
 import com.google.gson.annotations.SerializedName
 
-class Result(
+class NPMovie(
         @SerializedName("adult") val adult: Boolean?,
         @SerializedName("backdrop_path") val backdropPath: String?,
         @SerializedName("genre_ids") val genreIds: List<Int>?,

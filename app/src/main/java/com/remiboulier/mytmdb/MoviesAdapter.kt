@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.remiboulier.mytmdb.network.models.Result
+import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.repository.NetworkState
 import kotlinx.android.synthetic.main.item_grid_result.view.*
 
 class MoviesAdapter(
         private val retryCallback: () -> Unit)
-    : PagedListAdapter<Result, MovieViewHolder>(DIFF_CALLBACK) {
+    : PagedListAdapter<NPMovie, MovieViewHolder>(DIFF_CALLBACK) {
 
     private var networkState: NetworkState? = null
 
@@ -44,23 +44,23 @@ class MoviesAdapter(
 
     companion object {
         private val DIFF_CALLBACK = object :
-                DiffUtil.ItemCallback<Result>() {
+                DiffUtil.ItemCallback<NPMovie>() {
             // The ID property identifies when items are the same.
-            override fun areItemsTheSame(oldItem: Result, newItem: Result) =
+            override fun areItemsTheSame(oldItem: NPMovie, newItem: NPMovie) =
                     oldItem.id == newItem.id
 
             // Use the "==" operator to know when an item's content changes.
             // Implement equals(), or write custom data comparison logic here.
             override fun areContentsTheSame(
-                    oldItem: Result, newItem: Result) = oldItem == newItem
+                    oldItem: NPMovie, newItem: NPMovie) = oldItem == newItem
         }
     }
 }
 
 class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(result: Result?) = with(view) {
-        if (result != null)
-            resultTitle.text = result.title
+    fun bind(npMovie: NPMovie?) = with(view) {
+        if (npMovie != null)
+            resultTitle.text = npMovie.title
     }
 }

@@ -1,8 +1,8 @@
 package com.remiboulier.mytmdb.repository
 
-import com.remiboulier.mytmdb.network.models.Result
+import com.remiboulier.mytmdb.network.models.NPMovie
 
 interface ResultsRepository {
 
-    fun nowPlayingResults(pageSize: Int): Listing<Result>
+    fun nowPlayingResults(pageSize: Int): Listing<NPMovie>
 }
