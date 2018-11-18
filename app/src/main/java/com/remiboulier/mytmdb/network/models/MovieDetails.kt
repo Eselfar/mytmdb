@@ -3,6 +3,7 @@ package com.remiboulier.mytmdb.network.models
 import android.support.annotation.StringRes
 import com.google.gson.annotations.SerializedName
 import com.remiboulier.mytmdb.R
+import java.util.*
 
 /**
  * Created by Remi BOULIER on 18/11/2018.
@@ -24,7 +25,7 @@ data class MovieDetails(
         @SerializedName("poster_path") val posterPath: String? = null,
         @SerializedName("production_companies") val productionCompanies: List<ProductionCompany>? = null,
         @SerializedName("production_countries") val productionCountries: List<ProductionCountry>? = null,
-        @SerializedName("release_date") val releaseDate: String? = null,
+        @SerializedName("release_date") val releaseDate: Date? = null,
         @SerializedName("revenue") val revenue: Int? = null,
         @SerializedName("runtime") val runtime: Int? = null,
         @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguage>? = null,

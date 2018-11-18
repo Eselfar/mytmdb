@@ -10,8 +10,7 @@ import android.view.View
 import android.widget.ImageView
 import com.remiboulier.mytmdb.CoreApplication
 import com.remiboulier.mytmdb.R
-import com.remiboulier.mytmdb.extension.getBackdropUrl
-import com.remiboulier.mytmdb.extension.getPosterUrl
+import com.remiboulier.mytmdb.extension.*
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.BelongToCollection
 import com.remiboulier.mytmdb.network.models.Collection
@@ -86,9 +85,9 @@ class MovieDetailsActivity : AppCompatActivity() {
         uploadMovieImage(backdropPath?.getBackdropUrl(), detailsBackdrop)
         uploadMovieImage(posterPath?.getPosterUrl(), detailsPoster, R.drawable.img_poster_empty)
         detailsTitle.text = title
-        detailsReleaseDate.text = releaseDate
-        detailsRunningTime.text = "2h50"// TODO: runtime
-        detailsGenres.text = "Genres" // TODO
+        detailsReleaseDate.text = releaseDate?.displayDate()
+        detailsRunningTime.text = runtime?.displayTime()
+        detailsGenres.text = genres?.generateGenresString(this@MovieDetailsActivity)
         detailsStatus.setText(status!!.resId)
         detailsOverview.text = overview
     }

@@ -7,7 +7,6 @@ import com.remiboulier.mytmdb.BuildConfig
  * email: boulier.r.job@gmail.com
  */
 
-
 object ExtraConstants {
     const val MOVIE_ID = BuildConfig.APPLICATION_ID + ".MOVIE_ID"
 }

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MyTMDb</string>
     <string name="cancelled">Cancelled</string>
+    <string name="genres_list">Genres: %1$s</string>
     <string name="in_production">In Production</string>
     <string name="in_collection">In collection</string>
     <string name="planned">Planned</string>
