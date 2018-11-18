@@ -9,21 +9,21 @@ import android.view.ViewGroup
 import com.remiboulier.mytmdb.R
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.NetworkState
-import kotlinx.android.synthetic.main.item_grid_result.view.*
+import kotlinx.android.synthetic.main.item_recycler_npmovie.view.*
 
-class MoviesAdapter(
+class NowPlayingAdapter(
         private val retryCallback: () -> Unit)
-    : PagedListAdapter<NPMovie, MovieViewHolder>(DIFF_CALLBACK) {
+    : PagedListAdapter<NPMovie, NPMovieViewHolder>(DIFF_CALLBACK) {
 
     private var networkState: NetworkState? = null
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NPMovieViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
-            MovieViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_grid_result, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NPMovieViewHolder =
+            NPMovieViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_recycler_npmovie, parent, false))
 
     private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 
@@ -58,7 +58,7 @@ class MoviesAdapter(
     }
 }
 
-class MovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+class NPMovieViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     fun bind(npMovie: NPMovie?) = with(view) {
         if (npMovie != null)

@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initAdapter() {
 //        val glide = GlideApp.with(this) // TODO: Required later
-        val adapter = MoviesAdapter() {
+        val adapter = NowPlayingAdapter() {
             viewModel.retry()
         }
         homeRecycler.adapter = adapter

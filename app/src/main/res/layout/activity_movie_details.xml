@@ -139,7 +139,7 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/details_overview" />-->
 
     <TextView
-        android:id="@+id/details_similar_title"
+        android:id="@+id/detailsCollectionTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -157,7 +157,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/details_recycler"
+        android:id="@+id/detailsCollectionRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -171,6 +171,6 @@
         android:paddingTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_similar_title" />
+        app:layout_constraintTop_toBottomOf="@+id/detailsCollectionTitle" />
 
 </android.support.constraint.ConstraintLayout>
