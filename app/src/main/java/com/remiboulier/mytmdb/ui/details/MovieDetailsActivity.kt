@@ -95,8 +95,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         displayImage(backdropPath?.getBackdropUrl(), detailsBackdrop, glideApp)
         displayImage(posterPath?.getPosterUrl(), detailsPoster, glideApp, R.drawable.img_poster_empty)
         detailsTitle.text = title
-        detailsReleaseDate.text = releaseDate?.displayDate()
-        detailsRunningTime.text = runtime?.displayTime()
+        detailsReleaseDate.text = releaseDate?.toReadableDate()
+        detailsRunningTime.text = runtime?.toHourTime()
         detailsGenres.text = genres?.generateGenresString(this@MovieDetailsActivity)
         detailsStatus.setText(status!!.resId)
         detailsOverview.text = overview

@@ -8,7 +8,7 @@ import java.util.*
  * email: boulier.r.job@gmail.com
  */
 
-fun Date.displayDate(): String {
+fun Date.toReadableDate(): String {
     val df = SimpleDateFormat("dd MMM yyyy", Locale.UK)
 
     return df.format(this)

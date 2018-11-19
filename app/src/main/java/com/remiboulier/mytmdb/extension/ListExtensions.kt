@@ -9,10 +9,13 @@ import com.remiboulier.mytmdb.network.models.Genre
  * email: boulier.r.job@gmail.com
  */
 
-fun List<Genre>.generateGenresString(context: Context): String {
+fun List<Genre>.generateGenresString(context: Context): String =
+        context.getString(R.string.genres_list, genresToString(this))
+
+fun genresToString(genres: List<Genre>): String {
     val builder = StringBuilder()
-    for ((index, genre) in this.withIndex()) {
+    for ((index, genre) in genres.withIndex()) {
         builder.append(if (index == 0) "" else ", ").append(genre.name)
     }
-    return context.getString(R.string.genres_list, builder)
+    return builder.toString()
 }
