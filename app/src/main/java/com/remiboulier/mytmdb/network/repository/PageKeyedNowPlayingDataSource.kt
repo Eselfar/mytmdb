@@ -2,6 +2,7 @@ package com.remiboulier.mytmdb.network.repository
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.PageKeyedDataSource
+import com.remiboulier.mytmdb.network.NoNetworkException
 import com.remiboulier.mytmdb.network.TMDbApi
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.models.NowPlaying
@@ -65,8 +66,9 @@ class PageKeyedNowPlayingDataSource(
             val error = NetworkState.error(ioException.message ?: "unknown error")
             networkState.postValue(error)
             initialLoad.postValue(error)
+        } catch (networkException: NoNetworkException) {
+            networkState.postValue(NetworkState.error(networkException.message))
         }
-
     }
 
     fun generateNextKey(page: Int?, totalPages: Int?): Int? =

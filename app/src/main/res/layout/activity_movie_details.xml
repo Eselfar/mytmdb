@@ -125,19 +125,6 @@
         app:layout_constraintTop_toBottomOf="@+id/details_separator_01"
         tools:text="Phasellus vel nisi sed elit porttitor euismod a nec dolor. Nulla mollis cursus tempor. Aenean imperdiet in nulla eu elementum. Nunc in est vitae tellus tincidunt rutrum at at libero. Duis viverra, nisi a ultricies luctus, orci ex consequat mi, sed imperdiet nisi sapien a ex. Curabitur maximus est dolor, quis facilisis lorem molestie id. Maecenas molestie eget massa id dapibus. Maecenas ante tellus, egestas vel lacus vel, euismod vehicula nisl." />
 
-    <!--<View-->
-    <!--android:id="@+id/details_separator_02"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:visibility="invisible"-->
-    <!--android:layout_marginStart="10dp"-->
-    <!--android:layout_marginTop="10dp"-->
-    <!--android:background="@color/default_red"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/details_overview" />-->
-
     <TextView
         android:id="@+id/detailsCollectionTitle"
         android:layout_width="0dp"

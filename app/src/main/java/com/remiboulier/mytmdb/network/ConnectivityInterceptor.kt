@@ -30,4 +30,4 @@ class ConnectivityInterceptor(private val context: Context) : Interceptor {
     }
 }
 
-class NoNetworkException : RuntimeException()
+class NoNetworkException : RuntimeException("Please check your data connection")

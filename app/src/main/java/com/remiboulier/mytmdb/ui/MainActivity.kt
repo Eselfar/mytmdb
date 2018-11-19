@@ -8,10 +8,12 @@ import android.arch.paging.PagedList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
+import android.widget.Toast
 import com.remiboulier.mytmdb.CoreApplication
 import com.remiboulier.mytmdb.R
 import com.remiboulier.mytmdb.network.models.NPMovie
 import com.remiboulier.mytmdb.network.repository.InMemoryByPageKeyRepository
+import com.remiboulier.mytmdb.network.repository.Status
 import com.remiboulier.mytmdb.ui.details.MovieDetailsActivity
 import com.remiboulier.mytmdb.util.GlideApp
 import com.remiboulier.mytmdb.util.NowPlayingConstants
@@ -48,16 +50,22 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(it)
         })
         viewModel.networkState.observe(this, Observer {
+            if (it?.status == Status.FAILED) {
+                val msg: String = it.msg ?: getString(R.string.an_error_occurred)
+                Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+            }
             adapter.setNetworkState(it)
         })
     }
 
     private fun getViewModel(): NowPlayingViewModel {
         return ViewModelProviders.of(this, object : ViewModelProvider.Factory {
+
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 val executor = Executors.newFixedThreadPool(5)
                 val tmDbApi = (application as CoreApplication).tmDbApi
                 val repo = InMemoryByPageKeyRepository(tmDbApi, executor)
+
                 @Suppress("UNCHECKED_CAST")
                 return NowPlayingViewModel(repo) as T
             }
