@@ -35,7 +35,6 @@ class MovieDetailsViewModelTest {
         /**
          * Prevent an error when trying to access AndroidSchedulers.mainThread()
          *
-         *
          * See https://stackoverflow.com/a/43356315/1827254
          * and https://medium.com/@peter.tackage/overriding-rxandroid-schedulers-in-rxjava-2-5561b3d14212
          * for more information

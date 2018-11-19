@@ -39,7 +39,6 @@ class MovieDetailsAdapter(private val parts: MutableList<Part>,
         notifyDataSetChanged()
     }
 
-
     inner class PartViewHolder(val view: ImageView, onClick: (movieId: Int) -> Unit) : RecyclerView.ViewHolder(view) {
 
         init {
